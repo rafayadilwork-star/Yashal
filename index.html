@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Yashal Tahir ❤️ | Birthday Surprise</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sacramento&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        roseGold: '#B76E79',
+                        blushPink: '#FFD1DC',
+                        softCream: '#FFF5F7',
+                        deepRose: '#9E2A2B',
+                        romanticRed: '#E63946',
+                        warmGold: '#D4AF37'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        cursive: ['"Dancing Script"', 'cursive'],
+                        calligraphy: ['"Great Vibes"', 'cursive'],
+                        handwritten: ['"Sacramento"', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #fff0f3 0%, #fde2e4 35%, #fec5bb 70%, #fae1dd 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: #2b2d42;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.95);
+            box-shadow: 0 15px 35px -5px rgba(230, 57, 70, 0.12), 0 5px 15px -3px rgba(0, 0, 0, 0.04);
+        }
+
+        .glass-card-dark {
+            background: rgba(255, 240, 243, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 182, 193, 0.8);
+            box-shadow: 0 20px 40px rgba(158, 42, 43, 0.15);
+        }
+
+        .heart-particle {
+            position: fixed;
+            top: -10vh;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0vh) rotate(0deg) scale(0.8);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg) scale(1.3);
+                opacity: 0;
+            }
+        }
+
+        .polaroid-frame {
+            background: #ffffff;
+            padding: 14px 14px 44px 14px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .polaroid-frame:hover {
+            transform: translateY(-8px) scale(1.02) rotate(1deg);
+            box-shadow: 0 22px 40px rgba(230, 57, 70, 0.2);
+        }
+
+        .polaroid-tape {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            width: 80px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(255, 200, 200, 0.6);
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            z-index: 10;
+        }
+
+        .flip-card {
+            perspective: 1000px;
+            height: 220px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem;
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        .shimmer-title {
+            background: linear-gradient(90deg, #9e2a2b 0%, #e63946 35%, #b76e79 70%, #9e2a2b 100%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            animation: shimmer 5s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes lockPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.4); }
+            50% { transform: scale(1.06); box-shadow: 0 0 0 15px rgba(230, 57, 70, 0); }
+        }
+
+        .pulse-lock {
+            animation: lockPulse 2.5s infinite;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #fde2e4; }
+        ::-webkit-scrollbar-thumb { background: #b76e79; border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased font-sans">
+
+    <!-- Floating Background Heart Container -->
+    <div id="heartContainer" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Hidden Native File Input for Direct 5-Photo Upload -->
+    <input type="file" id="photoFileInput" accept="image/*" multiple class="hidden" onchange="handlePhotoUploads(event)">
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 right-0 z-40 p-3 md:p-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center bg-white/90 backdrop-blur-md px-4 py-2.5 rounded-full shadow-lg border border-rose-100">
+            <!-- Header Title (Double click / double tap trigger for passcode) -->
+            <div id="headerTitleTrigger" class="flex items-center space-x-2 cursor-pointer select-none" title="Double tap for owner controls">
+                <span class="inline-block p-1.5 bg-rose-100 text-romanticRed rounded-full animate-bounce">
+                    <i class="fa-solid fa-heart text-base"></i>
+                </span>
+                <span class="font-cursive text-xl md:text-2xl font-bold text-gray-800">Yashal Tahir</span>
+            </div>
+            
+            <div class="flex items-center space-x-2 md:space-x-3 text-xs md:text-sm">
+                <!-- Direct Photo Uploader Header Button -->
+                <button onclick="triggerPhotoUpload()" class="flex items-center space-x-1 px-3 py-1.5 rounded-full bg-gradient-to-r from-rose-500 to-romanticRed text-white hover:opacity-95 transition font-bold shadow-md">
+                    <i class="fa-solid fa-camera"></i>
+                    <span class="hidden sm:inline">📷 Upload Photos</span>
+                </button>
+
+                <!-- Music Control Button -->
+                <button id="musicToggleBtn" onclick="toggleMasterMusic()" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-rose-100 text-deepRose hover:bg-rose-200 transition font-semibold shadow-sm">
+                    <i id="musicIcon" class="fa-solid fa-music text-rose-500"></i>
+                    <span id="musicBtnText" class="hidden sm:inline font-medium">🎵 Music: Play</span>
+                </button>
+                
+                <!-- Volume Control Toggle -->
+                <button onclick="toggleMusicControlPanel()" class="px-2.5 py-1.5 rounded-full bg-rose-50 text-deepRose hover:bg-rose-100 border border-rose-200 transition" title="Music Settings">
+                    <i class="fa-solid fa-sliders text-xs"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Floating Music Control Panel -->
+        <div id="musicControlPanel" class="hidden max-w-sm mx-auto mt-2 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-rose-200 shadow-xl space-y-3 text-xs">
+            <div class="flex justify-between items-center border-b border-rose-100 pb-2">
+                <span class="font-bold text-deepRose flex items-center gap-1.5">
+                    <i class="fa-solid fa-compact-disc text-romanticRed"></i> Audio & Volume Controls
+                </span>
+                <button onclick="toggleMusicControlPanel()" class="text-gray-400 hover:text-gray-600 font-bold">✕</button>
+            </div>
+
+            <div class="space-y-1.5">
+                <label class="font-semibold text-gray-700 flex justify-between">
+                    <span>Master Volume:</span>
+                    <span id="volValText" class="text-rose-600 font-bold">70%</span>
+                </label>
+                <input type="range" id="volumeSlider" min="0" max="100" value="70" oninput="handleVolumeChange(this.value)" class="w-full accent-rose-500 cursor-pointer">
+            </div>
+
+            <div class="space-y-1.5 pt-1">
+                <label class="font-semibold text-gray-700 block">Custom Audio URL (MP3 Stream):</label>
+                <div class="flex gap-2">
+                    <input type="url" id="customMp3Input" placeholder="Paste direct .mp3 link..." class="w-full px-2.5 py-1.5 rounded-lg border border-rose-200 text-xs focus:outline-none focus:border-rose-400">
+                    <button onclick="applyCustomMp3Url()" class="px-3 py-1.5 bg-rose-500 hover:bg-rose-600 text-white font-bold rounded-lg transition text-xs whitespace-nowrap">
+                        Apply
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10 pt-24 pb-20 px-4 max-w-5xl mx-auto space-y-12">
+
+        <!-- Locked Countdown View -->
+        <section id="lockedCountdownView" class="space-y-8 text-center max-w-3xl mx-auto">
+            
+            <div class="space-y-3 pt-4">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-rose-200 text-deepRose font-semibold text-xs tracking-wide uppercase shadow-sm animate-pulse">
+                    <i class="fa-solid fa-lock text-romanticRed"></i> Locked Birthday Surprise • Unlocks October 20th
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold font-cursive shimmer-title">
+                    Counting Down For Yashal Tahir 💖
+                </h1>
+                <p class="text-gray-700 max-w-lg mx-auto text-sm md:text-base font-medium leading-relaxed">
+                    Something sweet, romantic, and special is waiting for you... It will automatically unlock on your birthday at midnight! ✨
+                </p>
+            </div>
+
+            <!-- Countdown Timer Card -->
+            <div class="glass-card rounded-3xl p-6 md:p-10 text-center border-2 border-rose-200/90 relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-rose-200/40 rounded-full blur-2xl"></div>
+                <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-pink-200/40 rounded-full blur-2xl"></div>
+
+                <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-tr from-romanticRed to-roseGold text-white rounded-full flex items-center justify-center text-2xl shadow-lg pulse-lock">
+                    <i class="fa-solid fa-gift"></i>
+                </div>
+
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-6 flex items-center justify-center gap-2 font-cursive">
+                    Time Remaining Until October 20th
+                </h2>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-5 max-w-xl mx-auto">
+                    <div class="bg-white/90 p-4 rounded-2xl shadow-sm border border-rose-100 flex flex-col justify-center transform hover:scale-105 transition">
+                        <span id="days" class="text-3xl md:text-5xl font-extrabold text-romanticRed">00</span>
+                        <span class="text-xs font-bold text-gray-500 uppercase mt-1">Days</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-2xl shadow-sm border border-rose-100 flex flex-col justify-center transform hover:scale-105 transition">
+                        <span id="hours" class="text-3xl md:text-5xl font-extrabold text-romanticRed">00</span>
+                        <span class="text-xs font-bold text-gray-500 uppercase mt-1">Hours</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-2xl shadow-sm border border-rose-100 flex flex-col justify-center transform hover:scale-105 transition">
+                        <span id="minutes" class="text-3xl md:text-5xl font-extrabold text-romanticRed">00</span>
+                        <span class="text-xs font-bold text-gray-500 uppercase mt-1">Minutes</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-2xl shadow-sm border border-rose-100 flex flex-col justify-center transform hover:scale-105 transition">
+                        <span id="seconds" class="text-3xl md:text-5xl font-extrabold text-romanticRed">00</span>
+                        <span class="text-xs font-bold text-gray-500 uppercase mt-1">Seconds</span>
+                    </div>
+                </div>
+
+                <!-- Easy Upload Trigger Button inside Countdown Box -->
+                <div class="mt-8 pt-4 border-t border-rose-100/80 flex justify-center">
+                    <button onclick="triggerPhotoUpload()" class="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-rose-500 to-romanticRed text-white font-bold rounded-full shadow-lg hover:shadow-xl transition text-xs md:text-sm">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> 📷 Upload Yashal's 5 Photos Here
+                    </button>
+                </div>
+            </div>
+
+            <!-- Teaser Yashal Photo Card -->
+            <div class="max-w-xs mx-auto pt-2">
+                <div class="polaroid-frame">
+                    <div class="polaroid-tape"></div>
+                    <div class="overflow-hidden rounded bg-rose-100 aspect-[3/4] relative flex items-center justify-center">
+                        <img id="teaserPhotoImg" src="https://placehold.co/400x500/fde2e4/9e2a2b?text=Yashal+Tahir" alt="Yashal Tahir Teaser" class="w-full h-full object-cover filter blur-[3px] opacity-80 transition">
+                        <div class="absolute inset-0 bg-black/20 flex flex-col items-center justify-center text-white p-4">
+                            <i class="fa-solid fa-lock text-3xl mb-2 text-rose-200 animate-bounce"></i>
+                            <span class="text-xs font-bold uppercase tracking-wider text-center">Unlocks On Birthday</span>
+                        </div>
+                    </div>
+                    <p class="font-cursive text-xl text-center text-gray-800 mt-3 font-bold">
+                        Yashal Tahir ✨
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Unlocked View (Hidden until Oct 20th or passcode trigger) -->
+        <div id="unlockedBirthdayView" class="hidden space-y-12">
+
+            <!-- Birthday Header Section -->
+            <section class="glass-card-dark rounded-3xl p-8 md:p-10 text-center max-w-3xl mx-auto border-2 border-rose-300">
+                <div class="text-5xl md:text-7xl mb-3 animate-bounce">👑🎉💖</div>
+                <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold font-calligraphy text-romanticRed mb-3">
+                    Happy Birthday, Yashal Tahir!
+                </h1>
+                <p class="text-gray-800 text-base md:text-lg max-w-xl mx-auto font-medium leading-relaxed">
+                    Today is all about celebrating you! May your day be filled with as much happiness, sweetness, and warmth as you bring into my life every single day.
+                </p>
+                <button onclick="triggerConfettiBurst()" class="mt-6 inline-flex items-center gap-2 px-7 py-3 bg-gradient-to-r from-pink-500 via-rose-600 to-deepRose text-white rounded-full font-bold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition text-sm">
+                    <i class="fa-solid fa-cake-candles"></i> Throw Birthday Confetti! 🎉
+                </button>
+            </section>
+
+            <!-- Yashal Hero Picture Feature -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 border border-rose-200">
+                <div class="text-center mb-6 space-y-1">
+                    <span class="px-3.5 py-1 bg-rose-100 text-deepRose rounded-full text-xs font-bold uppercase tracking-wider">
+                        Birthday Girl Highlight ✨
+                    </span>
+                    <h2 class="text-2xl md:text-4xl font-bold font-cursive text-deepRose pt-2">
+                        The Birthday Queen
+                    </h2>
+                    <p class="text-xs md:text-sm text-gray-600">Yashal Tahir</p>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <!-- Featured Yashal Photo -->
+                    <div class="w-full md:w-1/2 flex justify-center">
+                        <div class="polaroid-frame max-w-xs w-full cursor-pointer group" onclick="openLightbox(0)">
+                            <div class="polaroid-tape"></div>
+                            <div class="overflow-hidden rounded-lg bg-black aspect-[3/4] relative flex items-center justify-center">
+                                <img id="heroFeaturedImg" src="https://placehold.co/400x500/ffd1dc/9e2a2b?text=Yashal+Tahir" alt="Yashal Tahir Highlight" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-80"></div>
+                                <div class="absolute bottom-3 right-3 bg-black/60 text-white p-2 rounded-full backdrop-blur-md">
+                                    <i class="fa-solid fa-expand text-xs"></i>
+                                </div>
+                            </div>
+                            <p class="font-cursive text-xl md:text-2xl text-center text-gray-800 mt-4 font-bold">
+                                Gorgeous & Radiant ✨
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 space-y-4 text-center md:text-left">
+                        <h3 class="text-xl md:text-2xl font-bold font-cursive text-romanticRed">
+                            "You are my absolute world..."
+                        </h3>
+                        <p class="text-gray-700 text-sm md:text-base leading-relaxed">
+                            Every smile of yours brightens up my whole day. Looking at your beauty, kindness, and grace makes me feel like the luckiest person every single day.
+                        </p>
+                        <div class="p-4 bg-white/80 rounded-2xl border border-rose-200/80 text-xs md:text-sm italic text-gray-700 shadow-sm space-y-2">
+                            <p>
+                                "Thank you for filling my life with warmth, endless joy, and unforgettable love. Today is all about you!"
+                            </p>
+                            <p class="font-bold text-deepRose not-italic text-right block pt-1">— Forever Yours, Abdul Rafay ❤️</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gallery Collage (Yashal's Photos Only) -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-rose-200/60 pb-4">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-cursive font-bold text-deepRose flex items-center gap-2">
+                            <i class="fa-solid fa-camera-retro text-romanticRed text-xl"></i> Yashal's Photo Gallery
+                        </h2>
+                        <p class="text-xs text-gray-600">Tap any photo to view in full resolution</p>
+                    </div>
+                    <button onclick="triggerPhotoUpload()" class="px-4 py-1.5 bg-rose-100 hover:bg-rose-200 text-deepRose font-bold rounded-full text-xs transition">
+                        <i class="fa-solid fa-arrows-rotate"></i> Change Photos
+                    </button>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </section>
+
+            <!-- Love Letter Section -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 space-y-6">
+                <div class="text-center space-y-2">
+                    <h2 class="text-2xl md:text-4xl font-cursive font-bold text-deepRose">
+                        💌 A Birthday Love Letter For Yashal
+                    </h2>
+                    <p class="text-xs md:text-sm text-gray-600">From Abdul Rafay • Select a note style below</p>
+                </div>
+
+                <!-- Preset Buttons -->
+                <div class="flex justify-center flex-wrap gap-2 pt-1">
+                    <button onclick="selectLetterPreset(0)" id="presetBtn0" class="px-4 py-1.5 rounded-full text-xs font-bold bg-romanticRed text-white shadow-sm transition">
+                        Heartfelt Love Letter
+                    </button>
+                    <button onclick="selectLetterPreset(1)" id="presetBtn1" class="px-4 py-1.5 rounded-full text-xs font-bold bg-white text-gray-700 hover:bg-rose-100 transition">
+                        Sweet & Playful
+                    </button>
+                    <button onclick="selectLetterPreset(2)" id="presetBtn2" class="px-4 py-1.5 rounded-full text-xs font-bold bg-white text-gray-700 hover:bg-rose-100 transition">
+                        Soft & Poetic
+                    </button>
+                </div>
+
+                <!-- Love Letter Box -->
+                <div class="max-w-2xl mx-auto bg-white/95 rounded-2xl border border-rose-200 p-6 md:p-8 shadow-inner relative">
+                    <div class="absolute top-4 right-4 text-rose-300 text-3xl">
+                        <i class="fa-solid fa-stamp"></i>
+                    </div>
+
+                    <div class="font-calligraphy text-2xl md:text-3xl text-romanticRed mb-4 font-bold">
+                        My Dearest Yashal,
+                    </div>
+
+                    <div id="letterContent" class="text-gray-800 text-sm md:text-base leading-relaxed font-sans whitespace-pre-line">
+                        <!-- Dynamic content -->
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-rose-100 flex justify-between items-end">
+                        <div class="text-xs text-rose-400 font-semibold">
+                            ✨ October 20th Birthday Edition
+                        </div>
+                        <div class="font-cursive text-2xl text-deepRose font-bold">
+                            Forever & Always, Abdul Rafay ❤️
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6 Reasons Why Section -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 space-y-6">
+                <div class="text-center space-y-2">
+                    <h2 class="text-2xl md:text-3xl font-cursive font-bold text-deepRose">
+                        💖 6 Reasons Why You Mean Everything To Me
+                    </h2>
+                    <p class="text-xs text-gray-600">Tap any card below to flip and reveal!</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+                    <!-- Card 1 -->
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-white/90 border border-rose-200 shadow-sm">
+                                <i class="fa-solid fa-face-smile-beam text-3xl text-romanticRed mb-3"></i>
+                                <h3 class="font-bold text-gray-800 text-base">Your Gorgeous Smile</h3>
+                                <p class="text-xs text-gray-500 mt-2">Tap to Flip 🔄</p>
+                            </div>
+                            <div class="flip-card-back bg-gradient-to-br from-rose-500 to-deepRose text-white shadow-md">
+                                <i class="fa-solid fa-heart text-2xl mb-2 text-blushPink"></i>
+                                <p class="text-xs md:text-sm leading-relaxed font-medium">Your smile instantly brightens up my whole day and fills my heart with peace.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-white/90 border border-rose-200 shadow-sm">
+                                <i class="fa-solid fa-hand-holding-heart text-3xl text-romanticRed mb-3"></i>
+                                <h3 class="font-bold text-gray-800 text-base">Your Kind Heart</h3>
+                                <p class="text-xs text-gray-500 mt-2">Tap to Flip 🔄</p>
+                            </div>
+                            <div class="flip-card-back bg-gradient-to-br from-rose-500 to-deepRose text-white shadow-md">
+                                <i class="fa-solid fa-sparkles text-2xl mb-2 text-blushPink"></i>
+                                <p class="text-xs md:text-sm leading-relaxed font-medium">The gentle way you care for people and your soft soul make me fall for you more every day.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-white/90 border border-rose-200 shadow-sm">
+                                <i class="fa-solid fa-comments text-3xl text-romanticRed mb-3"></i>
+                                <h3 class="font-bold text-gray-800 text-base">Our Special Chats</h3>
+                                <p class="text-xs text-gray-500 mt-2">Tap to Flip 🔄</p>
+                            </div>
+                            <div class="flip-card-back bg-gradient-to-br from-rose-500 to-deepRose text-white shadow-md">
+                                <i class="fa-solid fa-comments text-2xl mb-2 text-blushPink"></i>
+                                <p class="text-xs md:text-sm leading-relaxed font-medium">Every chat, every laugh, and every quiet moment with you is my absolute favorite memory.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-white/90 border border-rose-200 shadow-sm">
+                                <i class="fa-solid fa-crown text-3xl text-romanticRed mb-3"></i>
+                                <h3 class="font-bold text-gray-800 text-base">Your Effortless Grace</h3>
+                                <p class="text-xs text-gray-500 mt-2">Tap to Flip 🔄</p>
+                            </div>
+                            <div class="flip-card-back bg-gradient-to-br from-rose-500 to-deepRose text-white shadow-md">
+                                <i class="fa-solid fa-wand-magic text-2xl mb-2 text-blushPink"></i>
+                                <p class="text-xs md:text-sm leading-relaxed font-medium">You carry yourself with such beauty and elegance. You take my breath away every single time.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-white/90 border border-rose-200 shadow-sm">
+                                <i class="fa-solid fa-house-chimney-heart text-3xl text-romanticRed mb-3"></i>
+                                <h3 class="font-bold text-gray-800 text-base">My Safe Place</h3>
+                                <p class="text-xs text-gray-500 mt-2">Tap to Flip 🔄</p>
+                            </div>
+                            <div class="flip-card-back bg-gradient-to-br from-rose-500 to-deepRose text-white shadow-md">
+                                <i class="fa-solid fa-shield-heart text-2xl mb-2 text-blushPink"></i>
+                                <p class="text-xs md:text-sm leading-relaxed font-medium">In your eyes and in your presence, I found my comfort, my peace, and my home.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-white/90 border border-rose-200 shadow-sm">
+                                <i class="fa-solid fa-infinity text-3xl text-romanticRed mb-3"></i>
+                                <h3 class="font-bold text-gray-800 text-base">Simply Being You</h3>
+                                <p class="text-xs text-gray-500 mt-2">Tap to Flip 🔄</p>
+                            </div>
+                            <div class="flip-card-back bg-gradient-to-br from-rose-500 to-deepRose text-white shadow-md">
+                                <i class="fa-solid fa-stars text-2xl mb-2 text-blushPink"></i>
+                                <p class="text-xs md:text-sm leading-relaxed font-medium">I love you for exactly who you are. This birthday surprise is just the start of forever!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-xs text-gray-600 pt-6 border-t border-rose-200/60 space-y-1">
+            <p>Made with all my heart for <span class="font-bold text-deepRose">Yashal Tahir</span> ❤️</p>
+            <p class="text-[11px] text-gray-500">From Abdul Rafay • October 20 Birthday Surprise</p>
+        </footer>
+
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div id="lightboxModal" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center p-4 backdrop-blur-md" onclick="closeLightbox()">
+        <div class="relative max-w-3xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl p-4 text-center" onclick="event.stopPropagation()">
+            <button onclick="closeLightbox()" class="absolute top-3 right-3 w-9 h-9 bg-gray-100 hover:bg-rose-100 text-gray-800 rounded-full flex items-center justify-center font-bold z-20 transition">
+                ✕
+            </button>
+            <div id="modalImageContainer" class="max-h-[75vh] flex items-center justify-center overflow-hidden rounded-lg bg-black">
+                <img id="lightboxImg" src="" alt="Yashal Tahir" class="max-h-[75vh] w-auto object-contain shadow">
+            </div>
+            <p id="lightboxCaptionText" class="mt-4 text-lg font-cursive text-deepRose font-bold"></p>
+        </div>
+    </div>
+
+    <script>
+        
+        // Placeholder defaults for Yashal's photos
+        const defaultPhotos = [
+            'https://placehold.co/500x600/fde2e4/9e2a2b?text=Yashal+Photo+1',
+            'https://placehold.co/500x600/ffd1dc/9e2a2b?text=Yashal+Photo+2',
+            'https://placehold.co/500x600/fec5bb/9e2a2b?text=Yashal+Photo+3',
+            'https://placehold.co/500x600/fae1dd/9e2a2b?text=Yashal+Photo+4',
+            'https://placehold.co/500x600/fff0f3/9e2a2b?text=Yashal+Photo+5'
+        ];
+
+        let uploadedPhotos = [];
+
+        function loadSavedPhotos() {
+            try {
+                const stored = localStorage.getItem('yashal_birthday_photos');
+                if (stored) {
+                    uploadedPhotos = JSON.parse(stored);
+                } else {
+                    uploadedPhotos = [...defaultPhotos];
+                }
+            } catch(e) {
+                uploadedPhotos = [...defaultPhotos];
+            }
+        }
+
+        function triggerPhotoUpload() {
+            document.getElementById('photoFileInput').click();
+        }
+
+        function handlePhotoUploads(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0) return;
+
+            let loaded = 0;
+            const newPhotos = [];
+
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    newPhotos.push(e.target.result);
+                    loaded++;
+
+                    if (loaded === files.length) {
+                        uploadedPhotos = newPhotos.concat(uploadedPhotos).slice(0, 5);
+                        try {
+                            localStorage.setItem('yashal_birthday_photos', JSON.stringify(uploadedPhotos));
+                        } catch(err) {
+                            console.warn("LocalStorage space limit reached, photos kept in session.");
+                        }
+                        renderGallery();
+                        updateHeroImage();
+                        alert(`Successfully uploaded ${loaded} photo(s) of Yashal!`);
+                    }
+                };
+                reader.readAsDataURL(files[i]);
+            }
+        }
+
+        function updateHeroImage() {
+            if (uploadedPhotos.length > 0) {
+                const imgEl = document.getElementById('heroFeaturedImg');
+                const teaserEl = document.getElementById('teaserPhotoImg');
+                if (imgEl) imgEl.src = uploadedPhotos[0];
+                if (teaserEl) teaserEl.src = uploadedPhotos[0];
+            }
+        }
+
+        const letterPresets = [
+            `Happy Birthday, my love!
+
+From the moment you walked into my life, everything became brighter, warmer, and infinitely sweeter. You are my absolute everything — my smile, my peace, and my favorite person in the world.
+
+Every laugh we share, every quiet moment together, and every single memory with you means the world to me. I love you more than words can ever express.
+
+Happy Birthday, my beautiful queen! ❤️`,
+
+            `Happy Birthday to the sweetest human, Yashal! 🎉
+
+Celebrating your birthday is such a special feeling. Thank you for filling my days with your adorable smile, your soft warmth, and all the happiness you bring.
+
+I hope your day is as wonderfully cute, sweet, and radiant as you are! I love you so much! ✨🎂`,
+
+            `My Dearest Yashal,
+
+If love were measured in heartbeats, mine would play your name in every single pulse. 
+
+May your year ahead be as soft, beautiful, and wonderful as your heart. Thank you for simply being you.
+
+Happy Birthday, my sweet love. 🌹`
+        ];
+
+        let currentPresetIdx = 0;
+        let secretUnlocked = false;
+        let lastTapTime = 0;
+
+        /* Advanced Web Audio Synthesizer */
+        let audioCtx = null;
+        let masterGainNode = null;
+        let isMusicPlaying = false;
+        let synthLoopTimeout = null;
+        let customAudioElement = null;
+        let masterVolume = 0.7;
+
+        const romanticChords = [
+            { bass: 130.81, pad: [261.63, 329.63, 392.00, 493.88], arpeggio: [523.25, 659.25, 783.99, 659.25] },
+            { bass: 110.00, pad: [220.00, 261.63, 329.63, 392.00], arpeggio: [440.00, 523.25, 659.25, 523.25] },
+            { bass: 87.31,  pad: [174.61, 261.63, 329.63, 349.23], arpeggio: [349.23, 523.25, 659.25, 523.25] },
+            { bass: 98.00,  pad: [196.00, 246.94, 293.66, 349.23], arpeggio: [392.00, 493.88, 587.33, 493.88] }
+        ];
+
+        let chordIdx = 0;
+
+        function initAudioEngine() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContextClass();
+                masterGainNode = audioCtx.createGain();
+                masterGainNode.gain.setValueAtTime(masterVolume, audioCtx.currentTime);
+                masterGainNode.connect(audioCtx.destination);
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function toggleMasterMusic() {
+            initAudioEngine();
+
+            if (customAudioElement && customAudioElement.src) {
+                if (isMusicPlaying) {
+                    customAudioElement.pause();
+                    isMusicPlaying = false;
+                    updateMusicBtnUI(false);
+                } else {
+                    customAudioElement.play().then(() => {
+                        isMusicPlaying = true;
+                        updateMusicBtnUI(true);
+                    }).catch(e => {
+                        startSynthMelody();
+                    });
+                }
+                return;
+            }
+
+            if (isMusicPlaying) {
+                stopSynthMelody();
+            } else {
+                startSynthMelody();
+            }
+        }
+
+        function startSynthMelody() {
+            isMusicPlaying = true;
+            updateMusicBtnUI(true);
+            playNextRomanticSequence();
+        }
+
+        function stopSynthMelody() {
+            isMusicPlaying = false;
+            if (synthLoopTimeout) clearTimeout(synthLoopTimeout);
+            updateMusicBtnUI(false);
+        }
+
+        function playNextRomanticSequence() {
+            if (!isMusicPlaying || !audioCtx) return;
+
+            const currentChord = romanticChords[chordIdx % romanticChords.length];
+            const now = audioCtx.currentTime;
+            const chordDuration = 3.6;
+
+            playTone(currentChord.bass, 'sine', 0.18, chordDuration * 0.9, now);
+
+            currentChord.pad.forEach(freq => {
+                playTone(freq, 'triangle', 0.05, chordDuration * 0.85, now);
+            });
+
+            currentChord.arpeggio.forEach((freq, step) => {
+                const stepTime = now + (step * 0.85);
+                playTone(freq, 'sine', 0.12, 1.4, stepTime);
+            });
+
+            chordIdx++;
+            synthLoopTimeout = setTimeout(playNextRomanticSequence, chordDuration * 1000);
+        }
+
+        function playTone(freq, type, volume, duration, startTime) {
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, startTime);
+
+                gain.gain.setValueAtTime(0.0001, startTime);
+                gain.gain.linearRampToValueAtTime(volume * masterVolume, startTime + 0.12);
+                gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+
+                osc.connect(gain);
+                gain.connect(masterGainNode);
+
+                osc.start(startTime);
+                osc.stop(startTime + duration);
+            } catch(e) {}
+        }
+
+        function handleVolumeChange(val) {
+            masterVolume = parseFloat(val) / 100;
+            document.getElementById('volValText').innerText = val + '%';
+            if (masterGainNode && audioCtx) {
+                masterGainNode.gain.setValueAtTime(masterVolume, audioCtx.currentTime);
+            }
+            if (customAudioElement) {
+                customAudioElement.volume = masterVolume;
+            }
+        }
+
+        function toggleMusicControlPanel() {
+            const panel = document.getElementById('musicControlPanel');
+            panel.classList.toggle('hidden');
+        }
+
+        function applyCustomMp3Url() {
+            const url = document.getElementById('customMp3Input').value.trim();
+            if (!url) return;
+
+            if (synthLoopTimeout) clearTimeout(synthLoopTimeout);
+
+            if (!customAudioElement) {
+                customAudioElement = new Audio();
+                customAudioElement.loop = true;
+            }
+
+            customAudioElement.src = url;
+            customAudioElement.volume = masterVolume;
+
+            customAudioElement.play().then(() => {
+                isMusicPlaying = true;
+                updateMusicBtnUI(true);
+                alert("Custom music loaded & playing!");
+            }).catch(err => {
+                alert("Could not load URL. Playing synth music.");
+                startSynthMelody();
+            });
+        }
+
+        function updateMusicBtnUI(playing) {
+            const btnText = document.getElementById('musicBtnText');
+            const icon = document.getElementById('musicIcon');
+            if (playing) {
+                btnText.innerText = "🎵 Music: Playing";
+                icon.className = "fa-solid fa-compact-disc text-romanticRed animate-spin";
+            } else {
+                btnText.innerText = "🎵 Music: Play";
+                icon.className = "fa-solid fa-music text-rose-500";
+            }
+        }
+
+        /* Gallery & Lightbox Renderers */
+        function renderGallery() {
+            const container = document.getElementById('galleryGrid');
+            container.innerHTML = '';
+
+            const captions = [
+                'Her Gorgeous & Glowing Smile ✨',
+                'Elegance & Traditional Grace 💚',
+                'Warmth & Pure Happiness 🌸',
+                'Royal Style & Perfection 👑',
+                'Beautiful Memory & Sunshine ☀️'
+            ];
+
+            uploadedPhotos.forEach((imgUrl, index) => {
+                const card = document.createElement('div');
+                card.className = "polaroid-frame cursor-pointer group";
+                card.onclick = () => openLightbox(index);
+
+                card.innerHTML = `
+                    <div class="polaroid-tape"></div>
+                    <div class="overflow-hidden rounded bg-rose-50 aspect-square relative flex items-center justify-center">
+                        <img src="${imgUrl}" alt="Yashal Tahir" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                        <div class="absolute bottom-2 right-2 bg-black/40 text-white p-1.5 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition">
+                            <i class="fa-solid fa-expand text-xs"></i>
+                        </div>
+                    </div>
+                    <p class="font-cursive text-lg text-center text-gray-800 mt-3 truncate px-1 font-semibold">${captions[index % captions.length]}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function openLightbox(index) {
+            const imgUrl = uploadedPhotos[index] || uploadedPhotos[0];
+            if (!imgUrl) return;
+            const imgEl = document.getElementById('lightboxImg');
+            imgEl.src = imgUrl;
+
+            document.getElementById('lightboxCaptionText').innerText = `Yashal Tahir • Photo ${index + 1}`;
+            document.getElementById('lightboxModal').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightboxModal').classList.add('hidden');
+        }
+
+        /* Live Countdown Lock & Unlocking Logic */
+        function updateCountdown() {
+            const now = new Date();
+            let year = now.getFullYear();
+            let target = new Date(year, 9, 20, 0, 0, 0); // October 20th
+
+            if (secretUnlocked || (now >= target && now.getMonth() === 9 && now.getDate() >= 20)) {
+                unlockWebsite();
+                return;
+            }
+
+            lockWebsite();
+
+            const diff = target - now;
+            if (diff <= 0) {
+                unlockWebsite();
+                return;
+            }
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(d).padStart(2, '0');
+            document.getElementById('hours').innerText = String(h).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(m).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(s).padStart(2, '0');
+        }
+
+        function unlockWebsite() {
+            document.getElementById('lockedCountdownView').classList.add('hidden');
+            document.getElementById('unlockedBirthdayView').classList.remove('hidden');
+        }
+
+        function lockWebsite() {
+            document.getElementById('lockedCountdownView').classList.remove('hidden');
+            document.getElementById('unlockedBirthdayView').classList.add('hidden');
+        }
+
+        // Secret passcode trigger by double-tapping header title
+        function handleHeaderTitleTap() {
+            const now = new Date().getTime();
+            const tapLength = now - lastTapTime;
+            if (tapLength < 400 && tapLength > 0) {
+                const code = prompt("Enter passcode to preview unlocked site:");
+                if (code && (code.toLowerCase() === 'rafay' || code === '2026')) {
+                    secretUnlocked = !secretUnlocked;
+                    if (secretUnlocked) {
+                        unlockWebsite();
+                        triggerConfettiBurst();
+                    } else {
+                        updateCountdown();
+                    }
+                } else if (code) {
+                    alert("Incorrect passcode.");
+                }
+            }
+            lastTapTime = now;
+        }
+
+        function renderLetter() {
+            document.getElementById('letterContent').innerText = letterPresets[currentPresetIdx];
+            for (let i = 0; i < 3; i++) {
+                const btn = document.getElementById(`presetBtn${i}`);
+                if (i === currentPresetIdx) {
+                    btn.className = "px-4 py-1.5 rounded-full text-xs font-bold bg-romanticRed text-white shadow-sm transition";
+                } else {
+                    btn.className = "px-4 py-1.5 rounded-full text-xs font-bold bg-white text-gray-700 hover:bg-rose-100 transition";
+                }
+            }
+        }
+
+        function selectLetterPreset(idx) {
+            currentPresetIdx = idx;
+            renderLetter();
+        }
+
+        function triggerConfettiBurst() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 130,
+                    spread: 85,
+                    origin: { y: 0.6 },
+                    colors: ['#e63946', '#ffd1dc', '#b76e79', '#d4af37']
+                });
+            }
+        }
+
+        function createFloatingHearts() {
+            const container = document.getElementById('heartContainer');
+            const emojis = ['💖', '❤️', '🌸', '✨', '💕', '🌹'];
+
+            for (let i = 0; i < 22; i++) {
+                const p = document.createElement('div');
+                p.className = 'heart-particle text-lg md:text-2xl';
+                p.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.animationDuration = (Math.random() * 5 + 6) + 's';
+                p.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(p);
+            }
+        }
+
+        window.onload = function() {
+            loadSavedPhotos();
+            createFloatingHearts();
+            renderGallery();
+            updateHeroImage();
+            renderLetter();
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+
+            const headerTrigger = document.getElementById('headerTitleTrigger');
+            if (headerTrigger) {
+                headerTrigger.addEventListener('click', handleHeaderTitleTap);
+            }
+        };
+    </script>
+</body>
+</html>
